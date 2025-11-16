@@ -24,11 +24,15 @@ This is a full-stack application consisting of a Spring Boot backend and an Angu
 
 ## Running the Application
 
-### Option 1: Using Docker Compose (Recommended)
+### Using Docker Compose (Recommended)
+
+**⚠️ Important:** This application is designed to run with Docker Compose. The frontend is configured to communicate with the backend using Docker's internal networking. Running services individually may require additional configuration changes.
 
 1. Build and start both services:
 ```bash
-docker-compose up --build
+docker compose up --build
+# Running and detaching
+docker compose up -d --build
 ```
 
 2. Access the applications:
@@ -40,7 +44,9 @@ docker-compose up --build
 docker-compose down
 ```
 
-### Option 2: Running Locally
+### Running Locally (Advanced)
+
+**Note:** Local development requires manual configuration. The frontend's API URL is configured for Docker by default. You may need to modify `frontend/src/environments/environment.ts` to point to `http://localhost:8080/api` for local development.
 
 #### Backend
 ```bash
