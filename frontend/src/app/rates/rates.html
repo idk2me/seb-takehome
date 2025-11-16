@@ -1,0 +1,62 @@
+<div class="rates-container">
+  <div class="rates-card">
+    <div class="header">
+      <h1 class="title">Bank of Lithuania Exchange Rates</h1>
+      @if (date()) {
+        <p class="date">As of {{ date() }}</p>
+      }
+    </div>
+
+    <div class="search-box">
+      <input
+        type="text"
+        placeholder="Search currency..."
+        class="search-input"
+        [(ngModel)]="searchTerm"
+      />
+    </div>
+
+    @if (loading()) {
+      <div class="loading-container">
+        <div class="spinner"></div>
+        <p>Loading exchange rates...</p>
+      </div>
+    } @else if (error()) {
+      <div class="error-message">
+        {{ error() }}
+        <button class="retry-button" (click)="loadRates()">Retry</button>
+      </div>
+    } @else {
+      <div class="rates-table">
+        <div class="table-header">
+          <div class="col-currency">Currency</div>
+          <div class="col-rate">Rate (to EUR)</div>
+          <div class="col-action">Action</div>
+        </div>
+        
+        @for (rate of filteredRates(); track rate.currency) {
+          <div class="table-row">
+            <div class="col-currency">
+              <span class="currency-code">{{ rate.currency }}</span>
+            </div>
+            <div class="col-rate">
+              <span class="rate-value">{{ rate.rate | number:'1.4-4' }}</span>
+            </div>
+            <div class="col-action">
+              <button 
+                class="history-button"
+                (click)="viewHistory(rate.currency)"
+              >
+                View History
+              </button>
+            </div>
+          </div>
+        } @empty {
+          <div class="empty-state">
+            No currencies found matching "{{ searchTerm() }}"
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>
