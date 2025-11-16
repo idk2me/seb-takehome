@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 export interface Currency {
   code: string;
@@ -38,7 +39,7 @@ export interface HistoryPoint {
 })
 export class CurrencyService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/api';
+  private apiUrl = environment.apiUrl;
 
   getCurrencies(): Observable<Currency[]> {
     return this.http.get<Currency[]>(`${this.apiUrl}/debug/currencies`);
