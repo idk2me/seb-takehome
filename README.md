@@ -41,7 +41,7 @@ docker compose up -d --build
 
 3. Stop the services:
 ```bash
-docker-compose down
+docker compose down
 ```
 
 ### Running Locally (Advanced)
